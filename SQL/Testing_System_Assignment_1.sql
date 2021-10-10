@@ -3,7 +3,7 @@ USE testing_system;
 
 DROP TABLE IF EXISTS departments,
 				Positions ,
-				Acounts,
+				Accounts,
 				`Groups`,
 				Group_Accounts,
 				Type_questions,
