@@ -1,0 +1,7 @@
+DROP DATABASE IF EXISTS extra_assm4;
+CREATE DATABASE IF NOT EXISTS extra_assm4
+	CHARACTER SET "utf8"
+    COLLATE "utd8_unicode_ci";
+USE extra_assm4;
+
+DROP TABLE IF EXISTS 

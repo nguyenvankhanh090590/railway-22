@@ -28,16 +28,16 @@ VALUES			(	'TEXT_1'	,'KIDTH'	, '2001-12-12'		),
                 
                 
 INSERT INTO Colum_2( colum2_name 	, Birthdate , Gender 	,Is_DeletedFlag )
-VALUES				(	'KIYBYU'	,	19		,	'0'	,		1			),
-					(	'KYYBYU'	,	1		,	'0'	,		0			),
-                    (	'KYYYBYU'	,	2		,	'1'	,		0			),
-                    (	'KYYYYBYU'	,	9		,	'0'	,		1			),
-                    (	'KIIYBYU'	,	29		,	'1'	,		1			),
-                    (	'KIIIYBYU'	,	11		,	'0'	,		1			),
-                    (	'KIYBYU'	,	12		,	'1'	,		1			),
-                    (	'AFEIYBYU'	,	11		,	'0'	,		1			),
-                    (	'AFYBYU'	,	13		,	'0'	,		0			),
-                    (	'EIYBYU'	,	19		,	'1'	,		1			),
-                    (	'KIYYBYU'	,	1		,	'1'	,		0			),
-                    (	'ƯIYBYU'	,	14		,	'0'	,		1			);
+VALUES				(	'KIYBYU'	,	19		,	'0'	,		'1'			),
+					(	'KYYBYU'	,	1		,	'0'	,		'0'			),
+                    (	'KYYYBYU'	,	2		,	'1'	,		'0'			),
+                    (	'KYYYYBYU'	,	9		,	'0'	,		'1'			),
+                    (	'KIIYBYU'	,	29		,	'1'	,		'1'			),
+                    (	'KIIIYBYU'	,	11		,	'0'	,		'1'			),
+                    (	'KIYBYU'	,	12		,	'1'	,		'1'			),
+                    (	'AFEIYBYU'	,	11		,	'0'	,		'1'			),
+                    (	'AFYBYU'	,	13		,	'0'	,		'0'			),
+                    (	'EIYBYU'	,	19		,	'1'	,		'1'			),
+                    (	'KIYYBYU'	,	1		,	'1'	,		'0'			),
+                    (	'ƯIYBYU'	,	14		,	'0'	,		'1'			);
                 

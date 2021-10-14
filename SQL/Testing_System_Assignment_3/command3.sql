@@ -23,19 +23,26 @@ WHERE  department_name = 'sale';
 
 SELECT *, length(fullname) 
 FROM `accounts`
--- GROUP BY length(fullname)
 ORDER BY length(fullname) DESC
 LIMIT 1; 
+
+
+SELECT *-- ,(length(fullname))
+FROM `accounts`
+WHERE length(fullname)= (
+SELECT MAX(length(fullname))
+FROM `accounts`);
 
 
 
 -- Question 5: Lấy ra thông tin account có full name dài nhất và thuộc phòng ban có id =3
 
-SELECT * ,length(fullname)
+SELECT * -- ,length(fullname)
 FROM `accounts`
 WHERE department_id =3
-ORDER BY	 length(fullname)
+ORDER BY	 length(fullname) DESC
 LIMIT 1;
+
 
 
 -- Question 6: Lấy ra tên group đã tham gia trước ngày 20/12/2019
@@ -53,9 +60,9 @@ GROUP BY question_id
 HAVING COUNT(question_id)>=4;
 
 
+
+
 -- Question 7': lấy ra ID của question có ngày tạo trước ngày 2019-12-12 và có >=3 câu trả lời
-
-
 
 
 SELECT q.question_id
@@ -123,7 +130,7 @@ SELECT email
 FROM `accounts`
 WHERE department_id=5
  GROUP BY email;
-UPDATE `accounts` SET fullname='Nguyễn Bá Lộc' WHERE department_id='5';
+UPDATE `accounts` SET fullname='Nguyễn Bá Lộc',email='loc.nguyenba@vti.com.vn' WHERE department_id='5';
 
 
 -- Question 15: update account có id = 5 sẽ thuộc group có id = 4

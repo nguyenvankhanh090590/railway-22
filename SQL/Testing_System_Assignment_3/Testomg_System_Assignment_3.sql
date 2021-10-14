@@ -38,9 +38,9 @@ CREATE TABLE positions
 CREATE TABLE accounts
 (
 	account_id 		INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	email			VARCHAR (50) UNIQUE NOT NULL,
+	email			NVARCHAR (50) UNIQUE NOT NULL,
     username 		VARCHAR (100) UNIQUE NOT NULL,
-    fullname		VARCHAR (100) NOT NULL,
+    fullname		NVARCHAR (100) NOT NULL,
     gender 			BIT DEFAULT 1,
     department_id 	TINYINT UNSIGNED,
     position_id 	TINYINT UNSIGNED,
