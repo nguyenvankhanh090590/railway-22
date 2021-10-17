@@ -21,13 +21,8 @@ WHERE  department_name = 'sale';
 -- Question 4: lấy ra thông tin account có full name dài nhất
 
 
-SELECT *, length(fullname) 
-FROM `accounts`
-ORDER BY length(fullname) DESC
-LIMIT 1; 
 
-
-SELECT *-- ,(length(fullname))
+SELECT *
 FROM `accounts`
 WHERE length(fullname)= (
 SELECT MAX(length(fullname))
@@ -37,11 +32,19 @@ FROM `accounts`);
 
 -- Question 5: Lấy ra thông tin account có full name dài nhất và thuộc phòng ban có id =3
 
-SELECT * -- ,length(fullname)
-FROM `accounts`
-WHERE department_id =3
-ORDER BY	 length(fullname) DESC
-LIMIT 1;
+-- SELECT *
+-- FROM `accounts`
+-- WHERE department_id =3
+-- ORDER BY length(fullname) DESC
+-- LIMIT 1;
+
+SELECT *
+FROM accounts
+WHERE department_id=3 AND 
+length(fullname) = (
+	SELECT MAX(length(fullname))
+    FROM accounts
+    );
 
 
 
@@ -68,7 +71,7 @@ HAVING COUNT(question_id)>=4;
 SELECT q.question_id
 FROM answers q
 INNER JOIN questions s
-ON q.question_id=s.question_id
+	ON q.question_id=s.question_id
 WHERE s.create_date <= '2019-12-12'
 GROUP BY q.question_id
 HAVING	COUNT(q.question_id)>=3;
@@ -111,58 +114,51 @@ where department_id='2';
 
 SELECT	fullname
 FROM `accounts`
-WHERE fullname LIKE 'D%O';
+WHERE fullname LIKE 'D%o';
 
 
 -- Question 12: Xóa tất cả các exam được tạo trước ngày 20/12/2019
 
--- DELETE FROM exam_questions WHERE exam_id;
--- DELETE FROM exams WHERE createdate< '2019-12-20';
 
 
 DELETE eq
       FROM exam_questions eq
       INNER JOIN exams e 
 		ON eq.exam_id = e.exam_id
- WHERE e.createdate < '20191220';
+ WHERE e.createdate < '2019-12-20';
  
  DELETE FROM exams
-WHERE createdate < '20191220';
+WHERE createdate < '2019-12-20';
 
--- DELETE 	exams.*,
--- 		exam_questions.*
--- FROM	exams
--- INNER JOIN	exam_questions
--- 	ON	exams.exam_id = exam_questions.exam_id
--- WHERE	exams.createdate < '20191220';
+
 
 
 -- Question 13: Xóa tất cả các question có nội dung bắt đầu bằng từ "câu hỏi"
 
--- DELETE FROM questions WHERE content= "Câu hỏi%";
-
-SELECT *FROM exam_questions a
-INNER JOIN questions e
-ON a.question_id=e.question_id
-WHERE e.content LIKE "câu hỏi%";
-
-DELETE a
-FROM exam_questions a
-INNER JOIN questions e
-ON a.question_id=e.question_id
-WHERE e.content LIKE "câu hỏi%";
 
 
-SELECT *
-FROM answers a
-INNER JOIN questions e
-ON a.question_id=e.question_id
-WHERE e.content LIKE "câu hỏi%";
+-- SELECT *FROM exam_questions a
+-- INNER JOIN questions e
+-- ON a.question_id=e.question_id
+-- WHERE e.content LIKE "câu hỏi%";
 
-DELETE a FROM answers a
-INNER JOIN questions e
-ON a.question_id=e.question_id
-WHERE e.content LIKE "câu hỏi%";
+-- DELETE a
+-- FROM exam_questions a
+-- INNER JOIN questions e
+-- ON a.question_id=e.question_id
+-- WHERE e.content LIKE "câu hỏi%";
+
+
+-- SELECT *
+-- FROM answers a
+-- INNER JOIN questions e
+-- ON a.question_id=e.question_id
+-- WHERE e.content LIKE "câu hỏi%";
+
+-- DELETE a FROM answers a
+-- INNER JOIN questions e
+-- ON a.question_id=e.question_id
+-- WHERE e.content LIKE "câu hỏi%";
 
 SELECT *
 FROM questions
@@ -177,10 +173,10 @@ WHERE content LIKE "câu hỏi%";
 
 -- Question 14: Update thông tin của account có id = 5 thành tên "Nguyễn Bá Lộc" và -- email thành loc.nguyenba@vti.com.vn
 
-SELECT email
-FROM `accounts`
-WHERE department_id=5
- GROUP BY email;
+-- SELECT email
+-- FROM `accounts`
+-- WHERE department_id=5
+--  GROUP BY email;
 UPDATE `accounts` SET fullname='Nguyễn Bá Lộc',email='loc.nguyenba@vti.com.vn' WHERE department_id='5';
 
 
