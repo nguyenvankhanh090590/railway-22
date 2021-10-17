@@ -116,12 +116,63 @@ WHERE fullname LIKE 'D%O';
 
 -- Question 12: Xóa tất cả các exam được tạo trước ngày 20/12/2019
 
-DELETE FROM exam_questions WHERE exam_id;
-DELETE FROM exams WHERE createdate< '2019-12-20';
+-- DELETE FROM exam_questions WHERE exam_id;
+-- DELETE FROM exams WHERE createdate< '2019-12-20';
+
+
+DELETE eq
+      FROM exam_questions eq
+      INNER JOIN exams e 
+		ON eq.exam_id = e.exam_id
+ WHERE e.createdate < '20191220';
+ 
+ DELETE FROM exams
+WHERE createdate < '20191220';
+
+-- DELETE 	exams.*,
+-- 		exam_questions.*
+-- FROM	exams
+-- INNER JOIN	exam_questions
+-- 	ON	exams.exam_id = exam_questions.exam_id
+-- WHERE	exams.createdate < '20191220';
+
 
 -- Question 13: Xóa tất cả các question có nội dung bắt đầu bằng từ "câu hỏi"
 
-DELETE FROM questions WHERE content= "Câu hỏi%";
+-- DELETE FROM questions WHERE content= "Câu hỏi%";
+
+SELECT *FROM exam_questions a
+INNER JOIN questions e
+ON a.question_id=e.question_id
+WHERE e.content LIKE "câu hỏi%";
+
+DELETE a
+FROM exam_questions a
+INNER JOIN questions e
+ON a.question_id=e.question_id
+WHERE e.content LIKE "câu hỏi%";
+
+
+SELECT *
+FROM answers a
+INNER JOIN questions e
+ON a.question_id=e.question_id
+WHERE e.content LIKE "câu hỏi%";
+
+DELETE a FROM answers a
+INNER JOIN questions e
+ON a.question_id=e.question_id
+WHERE e.content LIKE "câu hỏi%";
+
+SELECT *
+FROM questions
+WHERE content LIKE "câu hỏi%";
+
+DELETE FROM questions
+WHERE content LIKE "câu hỏi%";
+
+
+
 
 
 -- Question 14: Update thông tin của account có id = 5 thành tên "Nguyễn Bá Lộc" và -- email thành loc.nguyenba@vti.com.vn
