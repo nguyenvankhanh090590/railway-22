@@ -171,15 +171,27 @@ HAVING COUNT(q.position_id) =(
 
 -- Question 11: Thống kê mỗi phòng ban có bao nhiêu dev, test, scrum master, PM
 
-SELECT 
-		p.position_name,
-        COUNT(a.department_id)so_phong_ban
+SELECT 	p.position_name,
+		COUNT(a.department_id)so_phong_ban
 FROM accounts a
 LEFT JOIN  positions p
 	ON a.position_id=p.position_id
 WHERE p.position_name IN ("Dev","Test","Scrum Master", "PM")
 GROUP BY p.position_id
 ORDER BY COUNT(a.department_id);
+
+
+SELECT d.department_name,
+		COUNT(a.department_id)SL_PHONG_BAN,
+        GROUP_CONCAT(p.position_name)
+FROM accounts a
+LEFT JOIN departments d
+	ON a.department_id=d.department_id
+LEFT JOIN positions p
+	ON a.position_id=p.position_id
+GROUP BY a.department_id;
+
+
     
 
 -- Question 12: Lấy thông tin chi tiết của câu hỏi bao gồm: thông tin cơ bản của
