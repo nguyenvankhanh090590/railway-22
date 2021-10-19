@@ -92,7 +92,7 @@ SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 SELECT q.content,
 		COUNT(q.category_id)so_lan_sd
 FROM questions q
-INNER JOIN category_questions c
+RIGHT JOIN category_questions c
 	ON q.category_id=c.category_id
 GROUP BY q.category_id;
 
@@ -104,7 +104,7 @@ SELECT  q.question_id,
         q.content,
         COUNT(e.question_id)sl_exam
 FROM exam_questions e
-INNER JOIN questions q
+RIGHT JOIN questions q
 	ON e.question_id=q.question_id
 GROUP BY e.question_id;
 
@@ -130,20 +130,35 @@ HAVING COUNT(a.question_id)= (
 -- Question 9: Thống kê số lượng account trong mỗi group
 
 
-SELECT 	g.group_id,
-		COUNT(a.account_id)sl_accout
-FROM accounts a
-RIGHT JOIN group_accounts g
-	ON g.account_id=a.account_id
-GROUP BY g.group_id
-;
+SELECT COUNT(a.account_id),
+		gr.group_id,
+		g.group_name
+FROM group_accounts gr
+RIGHT JOIN accounts a
+	ON a.account_id= gr.account_id
+RIGHT JOIN `groups`g
+	ON g.group_id=gr.group_id
+GROUP BY g.group_id;
+
+
+
+
+
+SELECT gr.*,COUNT(ga.account_id) number_1
+FROM `groups` gr
+LEFT JOIN group_accounts ga
+	ON gr.group_id=ga.group_id
+GROUP BY gr.group_id
+ORDER BY COUNT(ga.account_id);
+
+
 
 SELECT gr.group_name,
         COUNT(g.group_id)SL_account
 FROM group_accounts g
-INNER JOIN accounts a
+RIGHT JOIN accounts a
 	ON a.account_id=g.account_id
-INNER JOIN `groups` gr
+RIGHT JOIN `groups` gr
 	ON g.group_id=gr.group_id
 GROUP BY g.group_id;
 
@@ -185,15 +200,73 @@ SELECT d.department_name,
 		COUNT(a.department_id)SL_PHONG_BAN,
         GROUP_CONCAT(p.position_name)
 FROM accounts a
-LEFT JOIN departments d
+INNER JOIN departments d
 	ON a.department_id=d.department_id
-LEFT JOIN positions p
+INNER JOIN positions p
 	ON a.position_id=p.position_id
 GROUP BY a.department_id;
 
 
-    
 
+
+
+
+
+
+
+
+CREATE VIEW cross_dept_posi AS
+	SELECT 
+        d.department_id, p.position_id
+    FROM
+        departments d
+    CROSS JOIN `positions` p
+    WHERE
+        p.position_name IN ("Dev","Test","Scrum Master", "PM")
+    ORDER BY d.department_id , p.position_id;
+    
+SELECT * FROM cross_dept_posi;
+
+CREATE VIEW T2 AS
+	SELECT 
+        d.department_id,
+		p.position_id,
+		COUNT(a.account_id) AS number_of_account
+    FROM
+        positions p
+    LEFT JOIN `accounts` a ON p.position_id = a.position_id
+    RIGHT JOIN departments d ON a.department_id = d.department_id
+    WHERE
+        p.position_name IN ("Dev","Test","Scrum Master", "PM")
+    GROUP BY d.department_id , p.position_id;
+    
+SELECT * FROM T2;
+
+SELECT 
+    t1.department_id,
+    t1.position_id,
+    IF((t2.number_of_account IS NULL),0,t2.number_of_account) AS number_of_account
+FROM
+    (SELECT * FROM cross_dept_posi) AS t1
+        LEFT JOIN
+    (SELECT * FROM T2) AS t2 ON t1.department_id = t2.department_id
+        AND t1.position_id = t2.position_id
+GROUP BY t1.department_id , t1.position_id
+ORDER BY t1.department_id , t1.position_id;
+
+
+
+
+
+
+
+
+
+
+
+ 
+					 
+   
 -- Question 12: Lấy thông tin chi tiết của câu hỏi bao gồm: thông tin cơ bản của
 -- question, loại câu hỏi, ai là người tạo ra câu hỏi, câu trả lời là gì, ...
 
@@ -218,14 +291,12 @@ FROM	questions q
 
 -- Question 13: Lấy ra số lượng câu hỏi của mỗi loại tự luận hay trắc nghiệm
 
-SELECT q.content,
-		q.creator_id,
-		t.type_name,
-        COUNT(q.content)so_cau
+SELECT t.type_name,
+		COUNT(q.content)so_cau
 FROM questions q
 LEFT JOIN type_questions t
 	ON q.type_id=t.type_id
-GROUP BY q.content
+GROUP BY q.type_id
 ORDER BY COUNT(q.content);
 
 

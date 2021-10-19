@@ -18,8 +18,8 @@ VALUES 					(N'Dev'			),
 						(N'PM'			); 
 
 INSERT INTO `accounts`(email							, username			, fullname					, department_id	, position_id, create_date)
-VALUES 				(N'haidang29productions@gmail.com'	, N'dangblack'		,N'Nguyễn hải Đăng'			,   '1'			,   '1'		,'2020-03-05'),
-					(N'kimcong@gmail.com'				, N'quanganh'		,N'Nguyễn hải Đăng'			,   '1'			,   '2'		,'2020-03-05'),
+VALUES 				(N'haidang29productions@gmail.com'	, N'dangblack'		,N'Nguyen hải Đăng'			,   '1'			,   '1'		,'2020-03-05'),
+					(N'kimcong@gmail.com'				, N'quanganh'		,N'Nguyen hải Đăng'			,   '1'			,   '2'		,'2020-03-05'),
                     (N'anhtuyet@gmail.com'				, N'vanchien'		,N'Nguyen Van Chien'		,   '2'			,   '3'		,'2020-03-07'),
                     (N'KhangVTi1@gmail.com'				, N'cocoduongqua'	,N'Duong Do'				,   '5'			,   '4'		,'2020-03-08'),
                     (N'chahieurchi@gmail.com'			, N'doccocaubai'	,N'Nguyen Chien bai'		,   '4'			,   '4'		,'2020-03-10'),
@@ -28,10 +28,10 @@ VALUES 				(N'haidang29productions@gmail.com'	, N'dangblack'		,N'Nguyễn hải 
                     (N'sdoiesp@gmail.com'				, N'tungnui'		,N'Nguyen Thanh Trung'		,   '8'			,   '1'		,'2020-04-07'),
                     (N'duongghuu@gmail.com'				, N'duongghuu'		,N'Duong Van Huu dung'		,   '1'			,   '2'		,'2020-04-07'),
                     (N'vtiaccademy@gmail.com'			, N'vtiaccademy'	,N'Vi Ti Ai hieu'			,   '10'		,   '1'		,'2020-04-09'),
-					(N'KhanhVTi@gmail.com'				,	N'KN_1'			,N'Nguyễn Văn Khánh'		,	'5'			,	'3'		,'2021-10-10'),
+					(N'KhanhVTi@gmail.com'				,	N'KN_1'			,N'Nguyen Văn Khánh'		,	'5'			,	'3'		,'2021-10-10'),
                     (N'DangtheVIT@gamil.com'			,   N'DTV_1'        ,N'Đặng Thế Vinh'			,   '4'        	 ,   '2'     ,'2021-10-10'),
                     (N'Hoangthu@mail.com'				,   N'HTT_1'        ,N'Hoàng Thị Thu'			,   '3'        	 ,   '2'     ,'2021-10-10'),
-                    (N'Hienvien@gmail.com'				,   N'Hien_1'       ,N'Nguyễn Thu Hiền'			,   '2'        	 ,   '3'     ,'2021-10-10'),
+                    (N'Hienvien@gmail.com'				,   N'Hien_1'       ,N'Nguyen Thu Hiền'			,   '2'        	 ,   '3'     ,'2021-10-10'),
                     (N'Hoangkimdat@mgail.com'			,   N'DAT09'        ,N'Hoàng Kim Đạt'			,   '1'        	 ,   '1'     ,'2021-10-10'),
                     (N'dapchetthedeonaodcy@gmail.com'	,	N'datpha'		,N'pha van dat kim'			,   '6'			,	'1'		,'2019-02-19'),
                     (N'kongcodaoly@gmail.com'			,	N'kongcoda'		,N'koi da ga'            	,   '7'			,   '2'		,'2019-02-19'),

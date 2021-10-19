@@ -46,7 +46,7 @@ CREATE TABLE accounts
     position_id 	TINYINT UNSIGNED,
     create_date 	DATE,
     FOREIGN KEY(department_id) REFERENCES departments(department_id),
-    FOREIGN KEY(position_id) REFERENCES positions(position_id)
+    FOREIGN KEY(position_id) REFERENCES positions(position_id) ON DELETE CASCADE
 );
 
 
@@ -59,7 +59,7 @@ CREATE TABLE `groups`
 	group_name 	VARCHAR (100) NOT NULL,
     creator_id 	INT UNSIGNED,
     create_date DATE,
-    FOREIGN KEY(creator_id) REFERENCES accounts(account_id)
+    FOREIGN KEY(creator_id) REFERENCES accounts(account_id) ON UPDATE CASCADE
 );
 
 
@@ -71,8 +71,8 @@ CREATE TABLE group_accounts
 	account_id 	INT UNSIGNED,
 	join_date 	DATE,
     PRIMARY KEY(group_id, account_id),
-    FOREIGN KEY(group_id) REFERENCES `groups`(group_id),
-    FOREIGN KEY(account_id) REFERENCES accounts(account_id)
+    FOREIGN KEY(group_id) REFERENCES `groups`(group_id)ON DELETE NO ACTION,
+    FOREIGN KEY(account_id) REFERENCES accounts(account_id)ON DELETE NO ACTION
 );
 
 -- tạo bảng type_questions:
@@ -101,9 +101,9 @@ CREATE TABLE questions
     type_id 		TINYINT UNSIGNED,
     creator_id 		INT UNSIGNED,
     create_date 	DATE,
-    FOREIGN KEY(type_id) REFERENCES type_questions(type_id),
-    FOREIGN KEY(category_id) REFERENCES category_questions(category_id),
-    FOREIGN KEY(creator_id) REFERENCES accounts(account_id)
+    FOREIGN KEY(type_id) REFERENCES type_questions(type_id)ON DELETE CASCADE,
+    FOREIGN KEY(category_id) REFERENCES category_questions(category_id)ON DELETE CASCADE,
+    FOREIGN KEY(creator_id) REFERENCES accounts(account_id)ON DELETE CASCADE
 );
 
 
@@ -115,7 +115,7 @@ CREATE TABLE answers
     content			TEXT,
     question_id 	INT UNSIGNED,
 	iscorrect		BIT DEFAULT 1,
-    FOREIGN KEY(question_id) REFERENCES questions(question_id)
+    FOREIGN KEY(question_id) REFERENCES questions(question_id)ON DELETE CASCADE
 );
 
 
@@ -142,8 +142,8 @@ CREATE TABLE exam_questions
 	exam_id 		INT UNSIGNED,
 	question_id 	INT UNSIGNED,
 	PRIMARY KEY(exam_id,question_id),
-    FOREIGN KEY(question_id) REFERENCES questions(question_id),
-    FOREIGN KEY(exam_id) REFERENCES exams(exam_id)
+    FOREIGN KEY(question_id) REFERENCES questions(question_id)ON DELETE CASCADE,
+    FOREIGN KEY(exam_id) REFERENCES exams(exam_id)ON DELETE CASCADE
 );
 
 
