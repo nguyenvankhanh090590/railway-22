@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS
 CREATE TABLE departments
 (
 	department_id 		TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-	department_name 	VARCHAR(100) NOT NULL
+	department_name 	NVARCHAR(100) NOT NULL
 );
 -- tạo bảng position :
 
@@ -39,7 +39,7 @@ CREATE TABLE accounts
 (
 	account_id 		INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	email			NVARCHAR (50) UNIQUE NOT NULL,
-    username 		VARCHAR (100) UNIQUE NOT NULL,
+    username 		NVARCHAR (100) UNIQUE NOT NULL,
     fullname		NVARCHAR (100) NOT NULL,
     gender 			BIT DEFAULT 1,
     department_id 	TINYINT UNSIGNED,
@@ -56,8 +56,8 @@ CREATE TABLE accounts
 CREATE TABLE `groups`
 (
 	group_id 	TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	group_name 	VARCHAR (100) NOT NULL,
-    creator_id 	INT UNSIGNED,
+	group_name 	NVARCHAR (100) NOT NULL,
+    creator_id 	INT UNSIGNED NOT NULL,
     create_date DATE,
     FOREIGN KEY(creator_id) REFERENCES accounts(account_id)
 );
@@ -67,8 +67,8 @@ CREATE TABLE `groups`
 
 CREATE TABLE group_accounts
 (
-	group_id 	TINYINT UNSIGNED,
-	account_id 	INT UNSIGNED,
+	group_id 	TINYINT UNSIGNED NOT NULL,
+	account_id 	INT UNSIGNED NOT NULL,
 	join_date 	DATE,
     PRIMARY KEY(group_id, account_id),
     FOREIGN KEY(group_id) REFERENCES `groups`(group_id),
@@ -88,7 +88,7 @@ CREATE TABLE type_questions
 CREATE TABLE category_questions
 (
 	category_id 	TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	category_name 	VARCHAR(100) NOT NULL
+	category_name 	NVARCHAR(100) NOT NULL
 );
 
 -- tạo bảng questions :
@@ -97,9 +97,9 @@ CREATE TABLE questions
 (
 	question_id 	INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	content			TEXT,
-    category_id 	TINYINT UNSIGNED,
-    type_id 		TINYINT UNSIGNED,
-    creator_id 		INT UNSIGNED,
+    category_id 	TINYINT UNSIGNED NOT NULL,
+    type_id 		TINYINT UNSIGNED NOT NULL,
+    creator_id 		INT UNSIGNED NOT NULL,
     create_date 	DATE,
     FOREIGN KEY(type_id) REFERENCES type_questions(type_id),
     FOREIGN KEY(category_id) REFERENCES category_questions(category_id),
@@ -113,7 +113,7 @@ CREATE TABLE answers
 (
 	answer_id 		INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     content			TEXT,
-    question_id 	INT UNSIGNED,
+    question_id 	INT UNSIGNED NOT NULL,
 	iscorrect		BIT DEFAULT 1,
     FOREIGN KEY(question_id) REFERENCES questions(question_id)
 );
@@ -126,9 +126,9 @@ CREATE TABLE exams
 (
 	exam_id 			INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	`code`				CHAR(10) UNIQUE NOT NULL,
-    title 				VARCHAR(200) NOT NULL,
-    category_id 		TINYINT UNSIGNED,
-    duration 			TINYINT UNSIGNED,
+    title 				NVARCHAR(200) NOT NULL,
+    category_id 		TINYINT UNSIGNED NOT NULL,
+    duration 			TINYINT UNSIGNED NOT NULL,
     creator_id 			INT UNSIGNED,
     createdate 			DATE,
     FOREIGN KEY(creator_id) REFERENCES accounts(account_id)
@@ -139,8 +139,8 @@ CREATE TABLE exams
 
 CREATE TABLE exam_questions
 (
-	exam_id 		INT UNSIGNED,
-	question_id 	INT UNSIGNED,
+	exam_id 		INT UNSIGNED NOT NULL,
+	question_id 	INT UNSIGNED NOT NULL,
 	PRIMARY KEY(exam_id,question_id),
     FOREIGN KEY(question_id) REFERENCES questions(question_id),
     FOREIGN KEY(exam_id) REFERENCES exams(exam_id)

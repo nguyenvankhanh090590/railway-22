@@ -71,7 +71,7 @@ DROP VIEW IF EXISTS TT_ACCOUNT;
 
 -- Question 3: Tạo view có chứa câu hỏi có những content quá dài (content quá 300 từ
 -- được coi là quá dài) và xóa nó đi
-
+DROP VIEW IF EXISTS content_length_15;
 CREATE VIEW content_length_15 
 AS
 	SELECT length(content)

@@ -1,5 +1,9 @@
+-- tạo database Testing_System
+
 CREATE DATABASE IF NOT EXISTS Testing_System;
 USE testing_system;
+
+-- tạo và xoá bảng departments ,Positions ,Accounts,`Groups`,Group_Accounts,Type_questions,Category_Questions,Questions,Exams,Exam_Questions
 
 DROP TABLE IF EXISTS departments,
 				Positions ,
@@ -20,7 +24,7 @@ CREATE TABLE departments
 CREATE TABLE Positions
 (
 	Position_id			INT AUTO_INCREMENT PRIMARY KEY,
-    Position_name		ENUM ("DEV","TEST","Srum Master","PM") -- ép người dùng hoặc là 1 trong những giá trị trong ngoặc
+    Position_name		ENUM ("DEV","TEST","Srum Master","PM") 
 );
 
 CREATE TABLE Accounts
@@ -48,7 +52,7 @@ CREATE TABLE Group_Account
 	Group_id 			INT AUTO_INCREMENT,
     Account_id			INT,
     Join_Date			Date,
-    PRIMARY KEY( group_id, account_id) -- định danh 2 dòng, ở đây có group_id và account)id
+    PRIMARY KEY( group_id, account_id)
 );
 
 CREATE TABLE Type_questions
@@ -78,13 +82,13 @@ CREATE TABLE Answers
 Answer_ID 				INT AUTO_INCREMENT PRIMARY KEY,
 Content					TEXT,
 Question_ID 			INT,
-is_Correct				BINARY -- binarry 0 hoặc 1 hoặc sử dụng loại ENUM("y","n")
+is_Correct				BIT
 );
 
 CREATE TABLE Exams
 (
 Exam_ID 				INT AUTO_INCREMENT PRIMARY KEY,
-`Code`					CHAR(10),-- `` dấu backtick/  và code luôn để CHAR=10
+`Code`					CHAR(10),
 Title					VARCHAR(100),
 Category_id				INT,
 Duration 				INT,

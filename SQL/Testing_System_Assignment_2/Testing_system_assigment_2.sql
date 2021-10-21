@@ -1,6 +1,13 @@
+-- xoá và tạo database Testing_System
+
 DROP DATABASE IF EXISTS Testing_System;
 CREATE DATABASE IF NOT EXISTS Testing_System;
+
+-- chọn sử dụng database Testing_System
+
 USE Testing_System;
+
+-- tạo và xoá bảng departments ,Positions ,Accounts,`Groups`,Group_Accounts,Type_questions,Category_Questions,Questions,Exams,Exam_Questions
 
 DROP TABLE IF EXISTS departments,
 				Positions,
@@ -16,7 +23,7 @@ DROP TABLE IF EXISTS departments,
 CREATE TABLE departments
 (
 	department_id		TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    department_name		VARCHAR(100) NOT NULL
+    department_name		NVARCHAR(100) NOT NULL
 );
 
 CREATE TABLE Positions
@@ -29,9 +36,9 @@ CREATE TABLE Accounts
 (
 	Account_id								TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     gender									BIT DEFAULT 1,
-    Email									VARCHAR(50) NOT NULL UNIQUE KEY,
-    Use_name								VARCHAR(50) NOT NULL UNIQUE KEY,
-    Full_name								VARCHAR(50) NOT NULL,
+    Email									NVARCHAR(50) NOT NULL UNIQUE KEY,
+    Use_name								NVARCHAR(50) NOT NULL UNIQUE KEY,
+    Full_name								NVARCHAR(50) NOT NULL,
     department_id							TINYINT UNSIGNED,
     Position_id								TINYINT UNSIGNED,
     Create_Date								DATE,
@@ -42,7 +49,7 @@ CREATE TABLE Accounts
 CREATE TABLE `Groups`
 (
 	Group_id								TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    Group_name								VARCHAR(50) NOT NULL,
+    Group_name								NVARCHAR(50) NOT NULL,
     Creator_id								TINYINT UNSIGNED,
     Create_Date								DATE
 
@@ -67,7 +74,7 @@ Type_name									ENUM("essay","mutiple-Choice") DEFAULT "mutiple-Choice"
 CREATE TABLE Category_Questions
 (
 Category_id 								TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-Category_Name 								VARCHAR(50) NOT NULL
+Category_Name 								NVARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Questions
@@ -95,7 +102,7 @@ CREATE TABLE Exams
 (
 Exam_id 									TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 `Code`										CHAR(10),
-Title										VARCHAR(100) NOT NULL,
+Title										NVARCHAR(100) NOT NULL,
 Category_id									TINYINT UNSIGNED,
 Duration 									TINYINT UNSIGNED,
 Creator_id									TINYINT UNSIGNED,

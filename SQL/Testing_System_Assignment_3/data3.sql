@@ -1,3 +1,4 @@
+-- chèn thông tin vào departments
 INSERT INTO departments(department_name)
 VALUES
 						(N'Marketing'	),
@@ -10,13 +11,13 @@ VALUES
 						(N'Giám đốc'	),
 						(N'Thư kí'		),
 						(N'Bán hàng'	);
-
+-- chèn thông tin vào positions
 INSERT INTO positions(position_name)  
 VALUES 					(N'Dev'			),
 						(N'Test'			),
 						(N'Scrum Master'	),
 						(N'PM'			); 
-
+-- chèn thông tin vào accounts
 INSERT INTO `accounts`(email							, username			, fullname					, department_id	, position_id, create_date)
 VALUES 				(N'haidang29productions@gmail.com'	, N'dangblack'		,N'Nguyễn hải Đăng'			,   '1'			,   '1'		,'2020-03-05'),
 					(N'kimcong@gmail.com'				, N'quanganh'		,N'Nguyen quang hai giao'	,   '1'			,   '2'		,'2020-03-05'),
@@ -44,7 +45,7 @@ VALUES 				(N'haidang29productions@gmail.com'	, N'dangblack'		,N'Nguyễn hải 
                     (N'Hienvinh@gmail.com'				,	N'hienvin'		,N' hoa van hien'			,   '4'         ,	'3'		,'2019-08-19'),
                     (N'Hoangdat@mgail.com'				,	N'hoangdat'		,N' hoang lao bo'           ,   '3'         ,   '1'		,'2019-08-19');
  
- 
+ -- chèn thông tin vào groups
 INSERT INTO `groups`	( group_name			, creator_id		, create_date)
 VALUES 				(N'Testing System'			,   5			,'2019-03-05'),
 					(N'Development'				,   1			,'2020-03-07'),
@@ -66,7 +67,7 @@ VALUES 				(N'Testing System'			,   5			,'2019-03-05'),
                     
                     
                     
-                    
+ -- chèn thông tin vào group_accounts                     
 INSERT INTO `group_accounts`	(  group_id	, account_id	, join_date	 )
 VALUES 						(	1		,    1		,'2019-03-05'),
 							(	1		,    2		,'2020-03-07'),
@@ -84,12 +85,12 @@ VALUES 						(	1		,    1		,'2019-03-05'),
                             (	4		,	14		,'2021-10-10'),
                             (	5		,	15		,'2021-10-10');
 
-
+-- chèn thông tin vào type_questions
 
 INSERT INTO type_questions (type_name			) 
 VALUES 						('essay'			), 
 							('multiple_choice'	); 
-
+-- chèn thông tin vào category_questions
 INSERT INTO category_questions (category_name)
 VALUES 								(N'Java'			),
 									(N'ASP.NET'		),
@@ -102,7 +103,7 @@ VALUES 								(N'Java'			),
 									(N'C Sharp'		),
 									(N'PHP'			);
 
-
+-- chèn thông tin vào questions
 INSERT INTO questions	(content			, category_id, type_id		, creator_id	, create_date )
 VALUES 					(N'Câu hỏi về Java Câu hỏi về Java Câu hỏi về Java Câu hỏi về Java'	,	1		,   '1'			,   '2'		,'2020-04-05'),
 						(N'Câu Hỏi về PHP6'	,	10		,   '2'			,   '2'		,'2020-04-05'),
@@ -125,7 +126,7 @@ VALUES 					(N'Câu hỏi về Java Câu hỏi về Java Câu hỏi về Java C�
                         
                         
                         
-
+-- chèn thông tin vào answers
 
 INSERT INTO answers	(  content		, question_id	, iscorrect	)
 VALUES 				(N'Trả lời 01'	,   1			,	0		),
@@ -148,7 +149,7 @@ VALUES 				(N'Trả lời 01'	,   1			,	0		),
                     (N'Trả lời 18'	,   9			,	1		),
                     (N'Trả lời 19'	,   10			,	1		);
                     
-                    
+   -- chèn thông tin vào exams                 
 
 INSERT INTO exams	(`code`			, title					, category_id	, duration	, creator_id		, createdate )
 VALUES 				('VTIQ001'		, N'Đề thi C#'			,	1			,	60		,   '5'			,'2019-04-05'),
@@ -174,7 +175,7 @@ VALUES 				('VTIQ001'		, N'Đề thi C#'			,	1			,	60		,   '5'			,'2019-04-05'),
                     ('VTIQ021'		, N'Đề thi Python'		,	8			,	60		,   '8'			,'2020-04-07'),
                     ('VTIQ022'		, N'Đề thi ADO.NET'		,	4			,	90		,   '9'			,'2020-04-07'),
                     ('VTIQ023'		, N'Đề thi ASP.NET'		,	7			,	90		,   '10'		,'2020-04-08');
- 
+ -- chèn thông tin vào. exam_questions
  
 INSERT INTO exam_questions(exam_id	, question_id) 
 VALUES 					(	1	,		5		),
