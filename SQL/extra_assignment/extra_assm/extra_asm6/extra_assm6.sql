@@ -1,50 +1,59 @@
+-- tạo data project_manage
 DROP DATABASE IF EXISTS project_manage;
-CREATE DATABASE IF NOT EXISTS project_manage
-CHARACTER SET 'utf8'
-COLLATE "utf8_unicode_ci";
+CREATE DATABASE project_manage;
+USE project_manage;
 
-DROP TABLE IF EXISTS project_modules;--  projects, employees,work_done;
-CREATE TABLE project_modules(
-module_id						TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-project_id						TINYINT UNSIGNED NOT NULL,
-employee_id						TINYINT UNSIGNED NOT NULL,
-project_modules_compled_on 		DATETIME DEFAULT NOW(),
-project_modules_description		NVARCHAR(100) NOT NULL,
-FOREIGN KEY (module_id) REFERENCES projects(project_id),
-FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
+
+-- tạo bảng  Employee
+DROP TABLE IF EXISTS Employee;
+CREATE TABLE Employee(
+	Employee_id 					TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    Employee_LastName				NVARCHAR(30) NOT NULL,
+    Employee_FirstName				NVARCHAR(30) NOT NULL,
+    Employee_Hire_Date				DATE,
+    Employee_Status					BIT NOT NULL, -- 1 : tot 2 : k tot
+    Supervisor_id					TINYINT UNSIGNED NOT NULL,
+    Social_Security_Number			CHAR(20),
+    FOREIGN KEY (Supervisor_id)		REFERENCES Employee (Employee_id)
+);
+-- tạo bảng  Projects
+DROP TABLE IF EXISTS Projects;
+CREATE TABLE Projects(
+	Project_id 						TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    Manager_id						TINYINT	UNSIGNED NOT NULL,
+    Project_Name 					NVARCHAR(50) NOT NULL,
+    Project_Start_Date				DATE,
+    Project_Description				NVARCHAR(50) NOT NULL,
+    Project_Detail					NVARCHAR(50) NOT NULL,
+    Project_Completed_On			DATE,
+		FOREIGN KEY (Manager_id)	REFERENCES Employee(Employee_id)
 );
 
-DROP TABLE IF EXISTS projects;
-CREATE TABLE projects(
-project_id						TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-manager_id						TINYINT UNSIGNED NOT NULL,
-project_name					NVARCHAR(50) NOT NULL,
-project_start_date				DATETIME DEFAULT NOW(),
-project_description				NVARCHAR(100) NOT NULL ,
-project_detail					NVARCHAR(100) NOT NULL ,
-project_completed_on			DATE DEFAULT NOW(),
-FOREIGN KEY (manager_id) REFERENCES employees(employee_id)
+-- tạo bảng  Project_Modules
+DROP TABLE IF EXISTS Project_Modules;
+CREATE TABLE Project_Modules
+(
+	Module_id 						TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    Project_id						TINYINT UNSIGNED NOT NULL,
+    Employee_id						TINYINT UNSIGNED NOT NULL,
+    Project_Modules_Date			DATE,
+    Project_Modules_On				DATE,
+    Project_Modules_Description		NVARCHAR(100),
+		FOREIGN KEY (Project_id) 	REFERENCES Projects (Project_id),
+        FOREIGN KEY (Employee_id) 	REFERENCES Employee (Employee_id)
+);
+-- tạo bảng  Work_Done
+DROP TABLE IF EXISTS Work_Done;
+CREATE TABLE Work_Done(
+	Work_Done_id					TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    Employee_id						TINYINT UNSIGNED NOT NULL,
+    Module_id						TINYINT UNSIGNED NOT NULL,
+    Work_Done_Date					DATE,
+    Work_Done_Description			NVARCHAR(100) NOT NULL,
+    Work_Done_Status				BIT NOT NULL, -- 1: done, 0: processing
+		FOREIGN KEY (Module_id)		REFERENCES Project_Modules (Module_id),
+		FOREIGN KEY (Employee_id)	REFERENCES Employee(Employee_id)
+);
 
-);
-DROP TABLE IF EXISTS employees;
-CREATE TABLE employees(
-employee_id						TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-employee_lastname				NVARCHAR (50),
-employee_fisrtname				NVARCHAR (50),
-employee_hire_date				DATE DEFAULT NOW(),
-employee_status					BIT NOT NULL , -- 1 : đang làm  0: nghỉ việc
-supervisior_id					TINYINT UNSIGNED NOT NULL,
-social_security_number			CHAR(10) NOT NULL,
-FOREIGN KEY (employee_id) REFERENCES employees(supervisior_id)
-);
 
-CREATE TABLE work_done(
-worrk_done_id					TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-employee_id						TINYINT UNSIGNED NOT NULL,
-module_id						TINYINT UNSIGNED NOT NULL,
-work_done_date					DATE DEFAULT NOW(),
-work_done_description			NVARCHAR(100) NOT NULL,
-work_done_status				BIT NOT NULL, -- ('1-work done','2-working'),
-FOREIGN KEY (employee_id) REFERENCES employees(employee_id),
-FOREIGN KEY (module_id)		REFERENCES project_modules(module_id)
-);
+

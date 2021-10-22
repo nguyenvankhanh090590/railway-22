@@ -142,34 +142,14 @@ WHERE createdate < '2019-12-20';
 -- ON a.question_id=e.question_id
 -- WHERE e.content LIKE "câu hỏi%";
 
--- DELETE a
--- FROM exam_questions a
--- INNER JOIN questions e
--- ON a.question_id=e.question_id
--- WHERE e.content LIKE "câu hỏi%";
+DELETE a
+FROM exam_questions a
+INNER JOIN questions e
+ON a.question_id=e.question_id
+WHERE e.content LIKE "câu hỏi%";
 
 
--- SELECT *
--- FROM answers a
--- INNER JOIN questions e
--- ON a.question_id=e.question_id
--- WHERE e.content LIKE "câu hỏi%";
-
--- DELETE a FROM answers a
--- INNER JOIN questions e
--- ON a.question_id=e.question_id
--- WHERE e.content LIKE "câu hỏi%";
-
-SELECT *
-FROM questions
-WHERE content LIKE "câu hỏi%";
-
-DELETE FROM questions
-WHERE content LIKE "câu hỏi%";
-
-
-
-
+-- SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));-- 
 
 -- Question 14: Update thông tin của account có id = 5 thành tên "Nguyễn Bá Lộc" và -- email thành loc.nguyenba@vti.com.vn
 
@@ -177,7 +157,7 @@ WHERE content LIKE "câu hỏi%";
 -- FROM `accounts`
 -- WHERE department_id=5
 --  GROUP BY email;
-UPDATE `accounts` SET fullname='Nguyễn Bá Lộc',email='loc.nguyenba@vti.com.vn' WHERE department_id='5';
+UPDATE `accounts` SET fullname='Nguyễn Bá Lộc' WHERE department_id='5';
 
 
 -- Question 15: update account có id = 5 sẽ thuộc group có id = 4
