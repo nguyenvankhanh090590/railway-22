@@ -1,4 +1,7 @@
+USE Testing_System_Assignment_4;
 
+-- Question 1: Tạo store để người dùng nhập vào tên phòng ban và in ra tất cả các
+-- account thuộc phòng ban đó
 
 DROP PROCEDURE IF EXISTS department_acount;
 DELIMITER $$
@@ -11,19 +14,23 @@ CREATE PROCEDURE department_acount( IN IN_department_name VARCHAR(100))
 		WHERE LOWER(d.department_name) = LOWER(IN_department_name);
 	END $$
 DELIMITER ;
+SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+-- Question 2: Tạo store để in ra số lượng account trong mỗi group
 
-
-
-  --   Tạo store để in ra số lượng account trong mỗi group
 DROP PROCEDURE IF EXISTS COUNT_account_group;
 DELIMITER $$
 CREATE PROCEDURE COUNT_account_group ()
 BEGIN
-	SELECT g.*,COUNT(g.group_id)
+	SELECT gr.group_name,
+			g.group_id,
+			COUNT(g.group_id) ACC_TOTAL
 	FROM group_accounts g
 	RIGHT JOIN `groups` a
 		ON g.group_id=a.group_id
-	GROUP BY g.group_id;
+	LEFT JOIN `groups`  gr
+		ON g.group_id=gr.group_id
+	GROUP BY g.group_id
+    ORDER BY COUNT(g.group_id);
 END$$
 DELIMITER ;
 CALL COUNT_account_group;

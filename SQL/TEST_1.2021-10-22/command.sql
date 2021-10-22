@@ -25,7 +25,7 @@ CREATE PROCEDURE CAR_firm_name()
 		FROM CAR c
 		RIGHT JOIN CAR_ORDER ca
 			ON c.Car_id=ca.Car_id
-            WHERE ca.Staus = "1" AND (SELECT NOW())
+            WHERE ca.Staus = "1"  AND YEAR(Delivery_Date)=(SELECT YEAR(NOW()))
 		GROUP BY ca.Customer_id
         HAVING SUM(ca.Amount) = (SELECT COUNT(Amount)
 									FROM CAR_ORDER
@@ -67,7 +67,7 @@ BEGIN
         FROM CAR_ORDER ca
         RIGHT JOIN CUSTOMER c
 			ON ca.Customer_id=c.Customer_id
-		LEFT JOIN CAR cr
+		RIGHT JOIN CAR cr
 			ON ca.Car_id=cr.Car_id
 		WHERE ca.Staus = 1 AND c.Customer_id = IN_Customer_id;
 END $$
