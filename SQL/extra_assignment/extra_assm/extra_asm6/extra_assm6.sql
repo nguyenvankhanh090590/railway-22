@@ -11,7 +11,7 @@ CREATE TABLE Employee(
     Employee_LastName				NVARCHAR(30) NOT NULL,
     Employee_FirstName				NVARCHAR(30) NOT NULL,
     Employee_Hire_Date				DATE,
-    Employee_Status					BIT NOT NULL, -- 1 : tot 2 : k tot
+    Employee_Status					BIT NOT NULL, -- 1 : tot 0 : k tot
     Supervisor_id					TINYINT UNSIGNED NOT NULL,
     Social_Security_Number			CHAR(20),
     FOREIGN KEY (Supervisor_id)		REFERENCES Employee (Employee_id)

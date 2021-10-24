@@ -62,3 +62,26 @@ CREATE PROCEDURE COUNT_type_question (OUT OUT_type_id INT)
 DELIMITER ;
 
 
+-- Question 6: Viết 1 store cho phép người dùng nhập vào 1 chuỗi và trả về group có tên
+-- chứa chuỗi của người dùng nhập vào hoặc trả về user có username chứa
+-- chuỗi của người dùng nhập vào
+-- Question 7: Viết 1 store cho phép người dùng nhập vào thông tin fullName, email và
+-- trong store sẽ tự động gán:
+
+-- username sẽ giống email nhưng bỏ phần @..mail đi
+-- positionID: sẽ có default là developer
+-- departmentID: sẽ được cho vào 1 phòng chờ
+
+-- Sau đó in ra kết quả tạo thành công
+-- Question 8: Viết 1 store cho phép người dùng nhập vào Essay hoặc Multiple-Choice
+-- để thống kê câu hỏi essay hoặc multiple-choice nào có content dài nhất
+-- Question 9: Viết 1 store cho phép người dùng xóa exam dựa vào ID
+-- Question 10: Tìm ra các exam được tạo từ 3 năm trước và xóa các exam đó đi (sử
+-- dụng store ở câu 9 để xóa)
+-- Sau đó in số lượng record đã remove từ các table liên quan trong khi
+-- removing
+-- Question 11: Viết store cho phép người dùng xóa phòng ban bằng cách người dùng
+-- nhập vào tên phòng ban và các account thuộc phòng ban đó sẽ được
+-- chuyển về phòng ban default là phòng ban chờ việc
+-- Question 12: Viết store để in ra mỗi tháng có bao nhiêu câu hỏi được tạo trong năm
+-- nay

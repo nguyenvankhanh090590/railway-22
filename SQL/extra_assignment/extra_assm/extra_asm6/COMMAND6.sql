@@ -10,15 +10,11 @@ USE project_manage;
 DELIMITER $$
 CREATE PROCEDURE remove_project()
 	BEGIN
-		SELECT Project_Name,Manager_id
-		FROM Projects
-		WHERE DATEDIFF( NOW(),Project_Completed_On) >= (SELECT NOW()- INTERVAL 3 month);
-        DELETE FROM remove_project;
-	END$$
+		DELETE FROM remove_project
+		WHERE month(Project_Completed_On) >= (SELECT NOW()- INTERVAL 3 month);
+	END $$
 DELIMITER ;
 CALL remove_project;
-
-
 
 
 
@@ -29,16 +25,31 @@ CALL remove_project;
 
 DROP PROCEDURE Procesing_project;
 DELIMITER $$
-CREATE PROCEDURE Procesing_project (IN Project_Completed_On DATETIME, OUT OUT_Project_Name VARCHAR(50))
+CREATE PROCEDURE Procesing_project( IN IN_Work_Done_Status BIT, OUT V_Module_id TINYINT)
 	BEGIN	
-		SELECT * INTO OUT_Project_Name
-		FROM Projects
-		WHERE DATEDIFF(Project_Completed_On,NOW())>=0;
-	END$$
+		SELECT Module_id  INTO V_Module_id
+        FROM Work_Done
+        WHERE Work_Done_Status = '0' AND Work_Done_Status = IN_Work_Done_Status;
+	END $$
 DELIMITER ;
-
-CALL Procesing_project(4);
+SET @V_Work_Done_Status='0';
+CALL Procesing_project('0',@V_Work_Done_Status);
+SELECT @V_Work_Done_Status;
 
 
 -- d) Viết hàm (có parameter) trả về thông tin 1 nhân viên đã tham gia làm mặc
 -- dù không ai giao việc cho nhân viên đó (trong bảng Works)
+
+DROP PROCEDURE worker_id;
+DELIMITER $$
+CREATE PROCEDURE worker_id( IN IN_Employee_FirstName NVARCHAR(30), OUT Employee_id TINYINT)
+	BEGIN	
+		SELECT q.Employee_id
+        FROM Work_Done a
+        RIGHT JOIN Employee q
+			ON a.Employee_id=q.Employee_id
+        WHERE a.Employee_id IS NULL AND q.Employee_FirstName = IN_Employee_FirstName;
+	END $$
+DELIMITER ;
+
+
