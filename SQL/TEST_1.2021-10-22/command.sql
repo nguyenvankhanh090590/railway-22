@@ -31,7 +31,8 @@ CREATE PROCEDURE CAR_firm_name()
 									FROM CAR_ORDER
                                     GROUP BY Amount
                                     ORDER BY COUNT(Amount) DESC
-                                    LIMIT 1);
+                                    LIMIT 1
+                                    );
 	END $$
 DELIMITER ;
 
@@ -72,3 +73,32 @@ BEGIN
 		WHERE ca.Staus = 1 AND c.Customer_id = IN_Customer_id;
 END $$
 DELIMITER ;
+
+CALL Customer_information;
+
+
+
+
+-- viết trigger tránh trường hơpk khách hàng 
+
+DROP TRIGGER IF EXISTS cau_6;
+DELIMITER $$
+
+CREATE TRIGGER cau_6
+BEFORE INSERT ON CAR_ORDER
+FOR EACH ROW
+BEGIN 
+	IF NEW.Delivery_Date < ADDDATE(NEW.Order_Date,INTERVAL 15 DAY) THEN
+		SIGNAL SQLSTATE "12345"
+		SET MESSAGE_TEXT = 'FAIL INSERT Delivery_Date_Order_Date';
+	-- ELSE 
+-- 		SELECT CONCAT(NEW.Delivery_Date,' ',NEW.Order_Date);
+	END IF;
+END $$
+DELIMITER ;
+
+INSERT INTO CAR_ORDER ( Customer_id ,Car_id ,Amount ,Sale_Price ,Order_Date ,Delivery_Date ,Delivery_Address ,Staus, Note)
+VALUES				(1, 5, 2, 100, '2020-03-05',  '2020-03-15','HANOI', '1' , NULL);
+
+
+
