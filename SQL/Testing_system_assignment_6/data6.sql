@@ -58,6 +58,54 @@ DELIMITER ;
 -- Question 4: Tạo store để trả ra id của type question có nhiều câu hỏi nhất
 
 
+
+
+
+DROP PROCEDURE IF EXISTS sp_GetCountQuesFromType;
+DELIMITER $$
+CREATE PROCEDURE sp_GetCountQuesFromType()
+BEGIN
+WITH CTE_MaxType_id AS(
+SELECT count(q.Type_id) AS SL FROM question q
+GROUP BY q.TypeID
+)
+SELECT tq.TypeName, count(q.TypeID) AS SL FROM question q
+INNER JOIN typequestion tq ON tq.TypeID = q.TypeID
+GROUP BY q.TypeID
+
+HAVING count(q.TypeID) = (SELECT MAX(SL) FROM CTE_MaxTypeID);
+END$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS type_max;
+DELIMITER $$
+CREATE PROCEDURE type_max ()
+BEGIN	
+		WITH CTE_SLTYPE_ID
+        AS (
+									SELECT COUNT(type_id)
+                                    FROM questions
+                                    GROUP BY type_id
+                                    ORDER BY COUNT(type_id) DESC
+                                    LIMIT 1)
+		SELECT COUNT(a.type_id),t.type_name
+        FROM CTE_SLTYPE_ID;
+		SELECT t.type_id,COUNT(q.type_id)
+		FROM questions a
+        INNER JOIN type_questions t
+			ON a.type_id=t.type_id
+		GROUP BY q.type_id
+        HAVING COUNT(a.type_id)= CTE_SLTYPE_ID;
+END $$
+DELIIMITER ;
+
+
+
+
+
+
+
+
 DROP PROCEDURE IF EXISTS COUNT_type_question;
 DELIMITER $$
 CREATE PROCEDURE COUNT_type_question (OUT OUT_type_id INT)
@@ -112,21 +160,26 @@ DELIMITER ;
 -- username sẽ giống email nhưng bỏ phần @..mail đi
 -- positionID: sẽ có default là developer
 -- departmentID: sẽ được cho vào 1 phòng chờ
-
 -- Sau đó in ra kết quả tạo thành công
 
--- DROP PROCEDURE infom_customer;
--- DELIMITER $$
--- CREATE PROCEDURE infom_customer(IN IN_full_name VARCHAR(50), IN IN_email_name VARCHAR(50))
--- BEGIN 
--- 		SELECT account_id,email,username,fullname,gender,position_id,create_date
---         FROM accounts
---         WHERE username = (SELECT TRUNCATE email
---         AND fullname = IN_full_name OR email=IN_email_name
---         AND position_id ="Dev";
--- END$$
--- DELIMITER ;
-
+DROP PROCEDURE infom_customer;
+DELIMITER $$
+CREATE PROCEDURE infom_customer(IN IN_full_name NVARCHAR(100), IN IN_email_name NVARCHAR(100))
+BEGIN 
+		UPDATE accounts
+        SET 
+        username = SUBSTRING_INDEX(email, '@', 1),
+        position_id = '1',
+        department_id = NULL
+        WHERE
+        fullname = IN_full_name AND
+        email = IN_email_name;
+        SELECT *
+        FROM accounts
+        WHERE 	LOWER(fullname)=IN_full_name AND
+				LOWER(email)=IN_email_name;
+END$$
+DELIMITER ;
 
 
 
